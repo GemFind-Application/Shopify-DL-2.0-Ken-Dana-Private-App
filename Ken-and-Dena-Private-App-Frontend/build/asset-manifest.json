@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/apps/diamondtools/static/css/main.2696eebf.css",
+    "main.js": "/apps/diamondtools/static/js/main.eb4fb083.js",
+    "static/media/diamond-image.png": "/apps/diamondtools/static/media/diamond-image.2d9d27af7a5d80d1e235.png",
+    "static/media/carat-Diamond.png": "/apps/diamondtools/static/media/carat-Diamond.ea63dd149919f42c3549.png",
+    "static/media/diamond.gif": "/apps/diamondtools/static/media/diamond.ab83c6d22d8820a8944a.gif",
+    "static/media/spinner.gif": "/apps/diamondtools/static/media/spinner.757857ce13a4e4e598e4.gif",
+    "static/media/shape-images.png": "/apps/diamondtools/static/media/shape-images.cdd2376994bc14bad604.png",
+    "static/media/near-colorless.png": "/apps/diamondtools/static/media/near-colorless.8382f956c031556ae3e7.png",
+    "static/media/cut-Diamond.png": "/apps/diamondtools/static/media/cut-Diamond.09957a96c9edeb7f0b1f.png",
+    "static/media/color.jpg": "/apps/diamondtools/static/media/color.701b7e34c9d87eeb2a38.jpg",
+    "static/media/emerald_Large.jpg": "/apps/diamondtools/static/media/emerald_Large.aa6db4f6b719aff56ce4.jpg",
+    "static/media/marquise_Large.png": "/apps/diamondtools/static/media/marquise_Large.41c9b05a27a7aa0aa038.png",
+    "static/media/360-view.png": "/apps/diamondtools/static/media/360-view.dd36a0dfde5dd5da5877.png",
+    "static/media/colorless.png": "/apps/diamondtools/static/media/colorless.f7d4bd38c2fcd6195488.png",
+    "index.html": "/apps/diamondtools/index.html",
+    "main.2696eebf.css.map": "/apps/diamondtools/static/css/main.2696eebf.css.map",
+    "main.eb4fb083.js.map": "/apps/diamondtools/static/js/main.eb4fb083.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2696eebf.css",
+    "static/js/main.eb4fb083.js"
+  ]
+}
