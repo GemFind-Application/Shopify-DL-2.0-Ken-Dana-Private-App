@@ -77,7 +77,7 @@ function Knowledge() {
                         </p>
                     </Banner>
                     <TextContainer />
-                    <DisplayText size="large">Knowledge Base</DisplayText>
+                    {/* <DisplayText size="large">Knowledge Base</DisplayText>
                     <Accordion
                         expanded={expanded === "panel1"}
                         onChange={handleChange("panel1")}
@@ -110,7 +110,7 @@ function Knowledge() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <TextContainer>
-                                DiamondLink ® is a retail ring and diamond
+                                DiamondLink® is a retail ring and diamond
                                 sourcing app that allows retailers to curate a
                                 list of ring and diamond suppliers for online
                                 shopping on their websites.
@@ -158,7 +158,7 @@ function Knowledge() {
                                 and it will be used in this app to function.
                             </TextContainer>
                         </AccordionDetails>
-                    </Accordion>
+                    </Accordion> */}
                 </Stack>
             </Card>
         </div>

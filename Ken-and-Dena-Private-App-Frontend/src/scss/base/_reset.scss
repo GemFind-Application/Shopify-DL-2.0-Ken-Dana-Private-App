@@ -66,10 +66,14 @@
   margin-bottom: 10px !important;
   text-align: left;
   text-transform: uppercase;
-  max-width: 90px;
-  min-width: 90px;
+  max-width: 120px;
+  min-width: 120px;
   letter-spacing: 0;
   font-family: "Lato", sans-serif !important;
+  &.f_small_heading{
+    max-width: 100px;
+    min-width: 100px;
+  }
   .f_popup {
     i {
       padding-left: 6px;
@@ -78,6 +82,9 @@
     }
   }
 }
+
+
+
 
 .gf-tool-container .gf-product-listing .gf-product-box-action label {
   letter-spacing: 0;

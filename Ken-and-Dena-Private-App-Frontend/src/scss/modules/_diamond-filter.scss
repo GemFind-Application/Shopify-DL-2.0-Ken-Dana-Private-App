@@ -195,6 +195,7 @@
             position: relative;
             a.gf-grid-view-four {
                 background-position: 7px 11px;
+                letter-spacing: normal;
             }
             a.listview {
                 background-image: none;
@@ -290,7 +291,7 @@
                 left: 20px;
                 position: absolute;
                 top: 20px;
-                z-index: 2;
+                z-index: 0;
             }
             .gf-slidebutton {
                 position: absolute;

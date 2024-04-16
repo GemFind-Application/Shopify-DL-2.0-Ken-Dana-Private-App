@@ -343,7 +343,7 @@ function SettingsForm(props) {
                             // } `,
                         }}
                     >
-                        <Card title="To view your store in front please click on 'View In Frontend' button.">
+                        <Card title="To view your store in frontend please click on 'View In Frontend' button.">
                             <a
                                 href={`${import_type}`}
                                 className="primary"
@@ -374,12 +374,12 @@ function SettingsForm(props) {
                         </Card>
                     </div>
                     <CalloutCard
-                        title="Next Steps for Getting Started with GemFind DiamondLink
+                        title="Next Steps for Getting Started with GemFind DiamondLinkⓇ
             "
                         illustration="https://gemfind.net/RingBuilderSampleFiles/callout-card.svg"
                         primaryAction={{
                             content:
-                                "Got questions? Contact us at support@gemfind.com or 800-373-4373",
+                                "Got a question? Contact us at support@gemfind.com or 1-949-752-7710.",
                             url: "#",
                         }}
                     >
@@ -389,30 +389,19 @@ function SettingsForm(props) {
                         <Card.Section>
                             <List>
                                 <List.Item>
-                                    Your DiamondLink app requires a Jewelcloud
-                                    account with GemFind.
+                                Thank you for installing The DiamondLinkⓇ application powered by GemFind. You will receive an email from our Support Team shortly.
                                 </List.Item>
                                 <List.Item>
-                                    Once your Jewelcloud account has been
-                                    activated our support team will email your
-                                    Jewelcloud account information and
-                                    instructions for selecting your diamond
-                                    vendors and setting your markups.
+                                Please provide collaborative access of the store to GemFind Support Team once you received the email from Shopify.
                                 </List.Item>
-                                <List.Item>
-                                    Once you receive your JewelCloud account
-                                    details, make sure to replace demo Dealer Id
-                                    (1089) with your JewelCloud Dealer ID
-                                    account number as well as add your “Admin
-                                    Email Address” to receive the notifications.
-                                </List.Item>
+                              
                             </List>
                         </Card.Section>
                     </CalloutCard>
                     <Card sectioned>
                         <FormLayout.Group condensed>
                             <TextField
-                                label="Dealer ID"
+                                label="JewelCloud Account ID"
                                 value={dealerId}
                                 onChange={handleDealerId}
                                 autoComplete="off"
@@ -427,7 +416,7 @@ function SettingsForm(props) {
                         </FormLayout.Group>
                         <FormLayout.Group condensed>
                             <ChoiceList
-                                title="Enable Hint"
+                                title="Enable A Hint"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -440,7 +429,7 @@ function SettingsForm(props) {
                                 className="Polaris-ChoiceList--horizontal"
                             />
                             <ChoiceList
-                                title="Enable Email Friend"
+                                title="Enable Email A Friend"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -452,7 +441,7 @@ function SettingsForm(props) {
                                 onChange={handleEnableEmail}
                             />
                             <ChoiceList
-                                title="Enable Schedule Viewing"
+                                title="Enable Schedule A Viewing"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -464,7 +453,7 @@ function SettingsForm(props) {
                                 onChange={handleEnableSchedule}
                             />
                             <ChoiceList
-                                title="Enable More Info"
+                                title="Enable Request More Info"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -502,7 +491,7 @@ function SettingsForm(props) {
                                 onChange={handleEnableNotification}
                             />
                             <ChoiceList
-                                title="Show Info Boxes?"
+                                title="Show Info Box?"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -526,7 +515,7 @@ function SettingsForm(props) {
                                 onChange={handleDiamondListing}
                             />
                             <ChoiceList
-                                title="Show Powered By?"
+                                title="Show Powered By GemFind?"
                                 choices={[
                                     { label: "Yes", value: "1" },
                                     {
@@ -552,7 +541,7 @@ function SettingsForm(props) {
                         </FormLayout.Group>
                         <FormLayout.Group condensed>
                             <ChoiceList
-                                title="Currency Symbol Location"
+                                title="Currency Symbol Position"
                                 choices={[
                                     { label: "Right", value: "1" },
                                     { label: "Left", value: "0" },
@@ -641,14 +630,14 @@ function SettingsForm(props) {
                         </FormLayout.Group>
                         <FormLayout.Group>
                             <TextField
-                                label="Site Key"
+                                label="Google reCaptcha Site Key"
                                 value={siteKey}
                                 onChange={handleSiteKey}
                                 multiline={2}
                                 autoComplete="off"
                             />
                             <TextField
-                                label="Secret Key"
+                                label="Google reCaptcha Secret Key"
                                 value={secretKey}
                                 onChange={handlesecretKey}
                                 multiline={2}
@@ -668,75 +657,53 @@ function SettingsForm(props) {
                         </FormLayout.Group>
                         <FormLayout.Group>
                             <Banner
-                                title="Need help for each field what need to do? Below are the description of each field where it is using in app."
+                                title="Need help? Below are the description of each field using in configuration."
                                 status="info"
                             >
                                 <List>
                                     <List.Item>
-                                        <Heading>DealerID</Heading>
+                                        <Heading> JewelCloud Acount ID</Heading>
                                         <p>
-                                            This is must required information
-                                            which will be using to communicate
-                                            with JewelCloud. You will find the
-                                            DealerID inside your JewelCloud
-                                            account. To get JewelCloud ID, you
-                                            need to contact GemFind support at
-                                            support@gemfind.com and for more
-                                            plan updates, please click on
-                                            Ringbuilder & Tryon.
+                                            This is mandatory field. GemFind Support team will help you to get the JewelCloud Account ID.                                         
                                         </p>
                                     </List.Item>
                                     <p></p>
                                     <List.Item>
                                         <Heading>Admin Email Address</Heading>
                                         <p>
-                                            This is will be used to received the
-                                            email notifications from end-user
-                                            when they are requesting for the
-                                            Request More Info or sending the
-                                            Ring or Diamond details to any
-                                            friend.
+                                            This is mandatory field. For Emailing purposes, application using this Email Address.                                      
                                         </p>
                                     </List.Item>
                                     <List.Item>
-                                        <Heading>Enable Hint</Heading>
+                                        <Heading>Enable A Hint</Heading>
                                         <p>
-                                            This will toggle the "Enable Hint"
-                                            option on Ring and Diamond detail
-                                            page.
+                                            Toggle to display "Drop A Hint Email" at frontend.
                                         </p>
                                     </List.Item>
                                     <List.Item>
-                                        <Heading>Enable Email Friend</Heading>
+                                        <Heading>Enable Email A Friend</Heading>
                                         <p>
-                                            This will toggle the "Enable Email
-                                            Friend" option on Ring and Diamond
-                                            detail page.
+                                            Toggle to display "Email A Friend" at frontend.
                                         </p>
                                     </List.Item>
                                     <List.Item>
                                         <Heading>
-                                            Enable Schedule Viewing
+                                            Enable Schedule A Viewing
                                         </Heading>
                                         <p>
-                                            This will toggle the "Enable
-                                            Schedule Viewing" option on Ring and
-                                            Diamond detail page.
+                                            Toggle to display "Schedule A Viewing" at frontend.
                                         </p>
                                     </List.Item>
                                     <List.Item>
-                                        <Heading>Enable More Info</Heading>
+                                        <Heading>Enable Request More Info</Heading>
                                         <p>
-                                            This will toggle the "Enable
-                                            Schedule Viewing" option on Ring and
-                                            Diamond detail page.
+                                            Toggle to display "Enable Request More Info" at frontend.
                                         </p>
                                     </List.Item>
                                     <List.Item>
                                         <Heading>Enable Print</Heading>
                                         <p>
-                                            This will toggle the "Enable Print:"
-                                            option on Diamond detail page.
+                                            Toggle to display "Print" at frontend.
                                         </p>
                                     </List.Item>
                                     <List.Item>
@@ -744,60 +711,53 @@ function SettingsForm(props) {
                                             Enable Admin Notification
                                         </Heading>
                                         <p>
-                                            This will toggle the "Enable Admin
-                                            Notification" option whether you
-                                            want the notification to be receive
-                                            on Admin Email address.
+                                            Toggle to receive the notification on Admin Email Address.                                         
                                         </p>
                                     </List.Item>
                                     <List.Item>
-                                        <Heading>Show Info Boxes?</Heading>
+                                        <Heading>Show Info Box?</Heading>
                                         <p>
-                                            This will toggle the "Info Boxes" on
-                                            each filters. It will have more
-                                            information about each filter
+                                            Toggle to display "Help Text" at frontend.                                          
                                         </p>
                                     </List.Item>
                                     <List.Item>
-                                        <Heading>Show Powered By?</Heading>
+                                        <Heading>Show Powered By GemFind?</Heading>
                                         <p>
                                             This will toggle the "Powered By
-                                            Gemfind" at the footer of the tool.
+                                            GemFind" at the footer of the tool.
                                         </p>
                                     </List.Item>
-                                    <List.Item>
+                                    {/* <List.Item>
                                         <Heading>Enable Sticky Header?</Heading>
                                         <p>
                                             This will toggle the sticky table
                                             header at diamond listing page.
                                         </p>
-                                    </List.Item>
+                                    </List.Item> */}
                                     <List.Item>
                                         <Heading>
                                             Diamond Listing Default View
                                         </Heading>
                                         <p>
-                                            By this option, you can set whether
-                                            you want the diamond listing in List
-                                            or Grid view.
+                                            Decide to display "Dimaond Listing" or "Grid View". Bydefault it is List View.
                                         </p>
                                     </List.Item>
-                                    <List.Item>
+                                    {/* <List.Item>
                                         <Heading>Shop</Heading>
                                         <p>
                                             It is just information purpose that
                                             what is the current store URL we are
                                             using inside configuration
                                         </p>
-                                    </List.Item>
-                                    <List.Item>
+                                    </List.Item> */}
+                                    {/* <List.Item>
                                         <Heading>Settings Carat Ranges</Heading>
                                         <p>
                                             The field is used for setting's
                                             carat ranges
                                         </p>
-                                    </List.Item>
-                                    <List.Item>
+                                    </List.Item> */}
+                                    {/* <List.Item>
                                         <Heading>Shop Logo URL</Heading>
                                         <p>
                                             It will need to enter the current
@@ -805,7 +765,7 @@ function SettingsForm(props) {
                                             emails which will send to end-users
                                             and store admin.
                                         </p>
-                                    </List.Item>
+                                    </List.Item> */}
                                 </List>
                             </Banner>
                         </FormLayout.Group>

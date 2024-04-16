@@ -13,14 +13,14 @@
     "src": "resources/frontend/assets/home-trophy.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-c8442388.css",
+    "file": "assets/app-fecef6ab.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "css": [
-      "assets/app-c8442388.css"
+      "assets/app-fecef6ab.css"
     ],
-    "file": "assets/app-3b8e818c.js",
+    "file": "assets/app-096dde6b.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

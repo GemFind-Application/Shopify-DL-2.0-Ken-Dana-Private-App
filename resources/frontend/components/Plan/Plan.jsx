@@ -9,7 +9,9 @@ import {
     InlineError,
     Icon,
 } from "@shopify/polaris";
-import { DiscountCodeMajor } from "@shopify/polaris-icons";
+import {
+    DiscountCodeIcon
+  } from '@shopify/polaris-icons';
 import React, { useEffect, useState, useCallback } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 function Plan() {
@@ -139,7 +141,7 @@ function Plan() {
                             }}
                         >
                             <Stack spacing="extraTight">
-                                <Icon source={DiscountCodeMajor} />
+                                <Icon source={DiscountCodeIcon} />
                                 <span>{textFieldValue}</span>
                             </Stack>
                         </Tag>

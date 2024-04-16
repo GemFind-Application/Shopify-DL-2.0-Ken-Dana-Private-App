@@ -36,6 +36,7 @@ const DiamondtoolSetting = (props) => {
   const [shape, setShape] = useState([]);
   const [getshapeselected, shapeselected] = useState("");
   const [openVideo, setOpenVideo] = useState(false);
+  const [certificateType, setcertificateType] = useState("");
 
   const [getSelectedCut, setSelectedCut] = useState("");
   const [initCut, setinitCut] = useState(false);
@@ -180,6 +181,19 @@ const DiamondtoolSetting = (props) => {
   };
 
   //console.log(props);
+
+  // Define the handler function to handle order type changes
+  const handleOrderTypeChange = (selectedOrderType) => {
+    // Update the state with the selected order type
+    console.log("selectedOrderType");
+    console.log(selectedOrderType);
+
+    if (selectedOrderType === "Show All Cerificate") {
+      setcertificateType("");
+    } else {
+      setcertificateType(selectedOrderType);
+    }
+  };
 
   const cutName = (cutName) => {
     const startCut = cutName[0];
@@ -508,12 +522,9 @@ const DiamondtoolSetting = (props) => {
   };
 
   const handleReturn = () => {
-  
-   navigate(`${process.env.PUBLIC_URL}`);
-      window.location.reload();
+    navigate(`${process.env.PUBLIC_URL}`);
+    window.location.reload();
   };
-
-  
 
   const tabvalue = (tabname) => {
     settabname(tabname);
@@ -691,8 +702,7 @@ const DiamondtoolSetting = (props) => {
   // GET FILTER PRODUCT
   const getInitFilterDiamondData = async (DealerID, tabname) => {
     try {
-
-      console.log('tabname');
+      console.log("tabname");
       console.log(tabname);
 
       // if (initdataload === true) {
@@ -1202,7 +1212,7 @@ const DiamondtoolSetting = (props) => {
       if (gettabname === "fancycolor") {
         var url = `${window.initData.data[0].diamondlistapifancy}DealerID=${
           window.initData.data[0].dealerid
-        }&Shape=${cookieshape}&CaratMin=${minCarat}&CaratMax=${maxCarat}&PriceMin=${minPrice}&PriceMax=${maxPrice}&ColorId=${getSelectedColor}&DID=${getfilledsearch}&ClarityId=${getSelectedClarity}&CutGradeId=${getSelectedCut}&TableMin=${getTablemin}&TableMax=${getTablemax}&DepthMin=${minDepth}&DepthMax=${maxDepth}&SymmetryId=${getSelectedsymmetry}&PolishId=${getSelectedpolish}&FluorescenceId=${getSelectedfluore}&OrderBy=${
+        }&Shape=${cookieshape}&CaratMin=${minCarat}&CaratMax=${maxCarat}&PriceMin=${minPrice}&PriceMax=${maxPrice}&ColorId=${getSelectedColor}&DID=${getfilledsearch}&ClarityId=${getSelectedClarity}&CutGradeId=${getSelectedCut}&TableMin=${getTablemin}&TableMax=${getTablemax}&DepthMin=${minDepth}&DepthMax=${maxDepth}&SymmetryId=${getSelectedsymmetry}&PolishId=${getSelectedpolish}&FluorescenceId=${getSelectedfluore}&Certificate=${certificateType}&OrderBy=${
           type ? type : getpageordertypeelected
         }&OrderType=${type1 ? type1 : getascdescordertypeelected}&PageNumber=${
           currentPage ? currentPage : getselectedpageno
@@ -1210,7 +1220,7 @@ const DiamondtoolSetting = (props) => {
       } else {
         var url = `${window.initData.data[0].diamondlistapi}DealerID=${
           window.initData.data[0].dealerid
-        }&Shape=${cookieshape}&CaratMin=${minCarat}&CaratMax=${maxCarat}&PriceMin=${minPrice}&PriceMax=${maxPrice}&ColorId=${getSelectedColor}&DID=${getfilledsearch}&ClarityId=${getSelectedClarity}&CutGradeId=${getSelectedCut}&TableMin=${getTablemin}&TableMax=${getTablemax}&DepthMin=${minDepth}&DepthMax=${maxDepth}&SymmetryId=${getSelectedsymmetry}&PolishId=${getSelectedpolish}&FluorescenceId=${getSelectedfluore}&OrderBy=${
+        }&Shape=${cookieshape}&CaratMin=${minCarat}&CaratMax=${maxCarat}&PriceMin=${minPrice}&PriceMax=${maxPrice}&ColorId=${getSelectedColor}&DID=${getfilledsearch}&ClarityId=${getSelectedClarity}&CutGradeId=${getSelectedCut}&TableMin=${getTablemin}&TableMax=${getTablemax}&DepthMin=${minDepth}&DepthMax=${maxDepth}&SymmetryId=${getSelectedsymmetry}&PolishId=${getSelectedpolish}&FluorescenceId=${getSelectedfluore}&Certificate=${certificateType}&OrderBy=${
           type ? type : getpageordertypeelected
         }&OrderType=${type1 ? type1 : getascdescordertypeelected}&PageNumber=${
           currentPage ? currentPage : getselectedpageno
@@ -1313,6 +1323,7 @@ const DiamondtoolSetting = (props) => {
     getSelectedfancyColor,
     getSelectedintensity,
     getdiamondFilterRange,
+    certificateType,
   ]);
 
   useEffect(() => {
@@ -2314,7 +2325,6 @@ const DiamondtoolSetting = (props) => {
     }
   };
 
-
   const handleModel = async (event) => {
     setvideoloader("true");
 
@@ -2333,10 +2343,9 @@ const DiamondtoolSetting = (props) => {
 
   const handleShow = (diamondId) => {
     setShowDiamondId(diamondId);
-    console.log(getcomparecookie.finalcompareproductcookie)
+    console.log(getcomparecookie.finalcompareproductcookie);
     setShow(true);
   };
-
 
   const getNavigationData = async () => {
     try {
@@ -2554,289 +2563,265 @@ const DiamondtoolSetting = (props) => {
     if (gettabname === "compare" && loadcomparedata === true) {
       return (
         <>
+          <Modal
+            open={getshow}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            className="additional-info"
+            onClose={handleClose}
+          >
+            <div className="gf-model-header">
+              <h2>Additional Information</h2>
+            </div>
+            <div className="diamond-information">
+              <ul className="diamond-spacification-list">
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li key={`product-diamondId-${item.diamondId}`}>
+                      <div className="diamonds-details-title">
+                        <p>Diamond ID</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.diamondId ? item.diamondId : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-      <Modal
-        open={getshow}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="additional-info"
-        onClose={handleClose}
-      >
-        <div className="gf-model-header">
-          <h2>Additional Information</h2>
-        </div>
-        <div className="diamond-information">
-          <ul className="diamond-spacification-list">
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                <li key={`product-diamondId-${item.diamondId}`}>
-                  <div className="diamonds-details-title">
-                    <p>Diamond ID</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.diamondId ? item.diamondId : "NA"}</p>
-                  </div>
-                </li>
-              ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Shape</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.shape ? item.shape : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Shape</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.shape ? item.shape : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Carat</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.carat ? item.carat : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Carat</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.carat ? item.carat : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Table</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.table ? item.table : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Table</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.table ? item.table : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Color</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.color ? item.color : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Color</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.color ? item.color : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Polish</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.polish ? item.polish : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Symmetry</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.symmetry ? item.symmetry : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Polish</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.polish ? item.polish : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Clarity</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.clarity ? item.clarity : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Symmetry</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.symmetry ? item.symmetry : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Fluorescence</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.fluorescence ? item.fluorescence : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Depth</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.depth ? item.depth : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Clarity</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.clarity ? item.clarity : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Measurement</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.measurement ? item.measurement : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Certificate</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.certificate ? item.certificate : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-              {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Fluorescence</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.fluorescence ? item.fluorescence : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Cut</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>{item.cut ? item.cut : "NA"}</p>
+                      </div>
+                    </li>
+                  ))}
 
-              {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Depth</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.depth ? item.depth : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
+                {getcomparecookie.finalcompareproductcookie
+                  .filter((item) => item.diamondId === showDiamondId)
+                  .map((item) => (
+                    <li>
+                      <div className="diamonds-details-title">
+                        <p>Price</p>
+                      </div>
+                      <div className="diamonds-info">
+                        <p>
+                          {item.fltPrice === "Call for Price"
+                            ? "Call For Price"
+                            : window.initData.data[0].price_row_format === "1"
+                            ? window.currencyFrom === "USD"
+                              ? window.currency +
+                                Number(item.fltPrice).toLocaleString(
+                                  undefined,
+                                  {
+                                    maximumFractionDigits: 0,
+                                  }
+                                )
+                              : window.currencyFrom +
+                                "  " +
+                                window.currency +
+                                "  " +
+                                Number(item.fltPrice).toLocaleString(
+                                  undefined,
+                                  {
+                                    maximumFractionDigits: 0,
+                                  }
+                                )
+                            : window.currencyFrom === "USD"
+                            ? window.currency +
+                              Number(item.fltPrice).toLocaleString(undefined, {
+                                maximumFractionDigits: 0,
+                              })
+                            : Number(item.fltPrice).toLocaleString(undefined, {
+                                maximumFractionDigits: 0,
+                              }) +
+                              "  " +
+                              window.currency +
+                              "  " +
+                              window.currencyFrom}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </Modal>
 
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Measurement</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.measurement ? item.measurement : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
-
-
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Certificate</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.certificate ? item.certificate : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
-
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                  <div className="diamonds-details-title">
-                    <p>Cut</p>
-                  </div>
-                  <div className="diamonds-info">
-                    <p>{item.cut ? item.cut : "NA"}</p>
-                  </div>
-                  
-                </li>
-                ))}
-
-            {getcomparecookie.finalcompareproductcookie
-              .filter((item) => item.diamondId === showDiamondId)
-              .map((item) => (
-                          
-                <li>
-                <div className="diamonds-details-title">
-                  <p>Price</p>
-                </div>
-                <div className="diamonds-info">
-                  <p>
-                    {item.fltPrice === "Call for Price"
-                      ? "Call For Price"
-                      : window.initData.data[0].price_row_format === "1"
-                      ? window.currencyFrom === "USD"
-                        ? window.currency +
-                          Number(item.fltPrice).toLocaleString(undefined, {
-                            maximumFractionDigits: 0,
-                          })
-                        : window.currencyFrom +
-                          "  " +
-                          window.currency +
-                          "  " +
-                          Number(item.fltPrice).toLocaleString(undefined, {
-                            maximumFractionDigits: 0,
-                          })
-                      : window.currencyFrom === "USD"
-                      ? window.currency +
-                        Number(item.fltPrice).toLocaleString(undefined, {
-                          maximumFractionDigits: 0,
-                        })
-                      : Number(item.fltPrice).toLocaleString(undefined, {
-                          maximumFractionDigits: 0,
-                        }) +
-                        "  " +
-                        window.currency +
-                        "  " +
-                        window.currencyFrom}
-                  </p>
-                </div>
-              </li>
-                ))}
-          </ul>
-        </div>
-      </Modal>
-
-      <Modal open={openVideo} onClose={onCloseModalVideo} center>
-        <div className="ring-diamond-video gf-active">
-          {getvideoloader === "true" ? (
-            <img
-              className="preloaderr"
-              alt="preLoad"
-              src={
-                window.initData.data[0].server_url +
-                process.env.PUBLIC_URL +
-                "/images/diamond.gif"
-              }
-              style={{ width: "100px", height: "100px" }}
-            />
-          ) : null}
-          <iframe
-            onLoad={spinner}
-            src={getVideo}
-            id="iframevideo"
-            width="560"
-            height="450"
-            scrolling="no"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </Modal>
+          <Modal open={openVideo} onClose={onCloseModalVideo} center>
+            <div className="ring-diamond-video gf-active">
+              {getvideoloader === "true" ? (
+                <img
+                  className="preloaderr"
+                  alt="preLoad"
+                  src={
+                    window.initData.data[0].server_url +
+                    process.env.PUBLIC_URL +
+                    "/images/diamond.gif"
+                  }
+                  style={{ width: "100px", height: "100px" }}
+                />
+              ) : null}
+              <iframe
+                onLoad={spinner}
+                src={getVideo}
+                id="iframevideo"
+                width="560"
+                height="450"
+                scrolling="no"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </Modal>
 
           <div>
             <Helmet>
@@ -2855,7 +2840,11 @@ const DiamondtoolSetting = (props) => {
 
             <Topheader></Topheader>
 
-            <div className={`gf-diamond-filter ${gettabname === 'compare' ?  'gf-compare' : ''}`}>
+            <div
+              className={`gf-diamond-filter ${
+                gettabname === "compare" ? "gf-compare" : ""
+              }`}
+            >
               <Filter
                 shapeName={getshapeselected}
                 selectedCut={getSelectedCut}
@@ -2914,7 +2903,7 @@ const DiamondtoolSetting = (props) => {
 
                       {getcomparecookie.finalcompareproductcookie.map(
                         (item) => (
-                          <td className="compare_icons" key={item.diamondId} >
+                          <td className="compare_icons" key={item.diamondId}>
                             <a
                               href="javascript:;"
                               onClick={() => handleShow(item.diamondId)}
@@ -2932,15 +2921,20 @@ const DiamondtoolSetting = (props) => {
                                   href="javascript:;"
                                   title="Play Video"
                                   className={`gf-video-popup ${
-                                    item.videoFileName !== "" ? "video-active" : ""
+                                    item.videoFileName !== ""
+                                      ? "video-active"
+                                      : ""
                                   }`}
                                   onClick={handleModel}
                                 >
                                   <span>
-                                  <i id={item.diamondId} class="fas fa-play-circle"></i>
+                                    <i
+                                      id={item.diamondId}
+                                      class="fas fa-play-circle"
+                                    ></i>
                                   </span>
                                 </a>
-                                </>
+                              </>
                             )}
                             &nbsp;
                             <a
@@ -2965,13 +2959,12 @@ const DiamondtoolSetting = (props) => {
                                 ></i>
                               </span>
                             </a>
-                          
                           </td>
                         )
                       )}
                     </tr>
                   </thead>
-               
+
                   <tbody>
                     <tr>
                       <th>Shape </th>
@@ -3165,8 +3158,6 @@ const DiamondtoolSetting = (props) => {
                       )}
                     </tr>
                   </tbody>
-
-                 
                 </Table>
               </div>
             )}
@@ -3275,11 +3266,12 @@ const DiamondtoolSetting = (props) => {
                 ))}
               </div>
             )}
-
-
           </div>
           <div className="return_btns">
-            <a href="javascript:;" className="gf-btn" onClick={handleReturn} > Return To store</a>
+            <a href="javascript:;" className="gf-btn" onClick={handleReturn}>
+              {" "}
+              Return To store
+            </a>
           </div>
         </>
       );
@@ -3530,18 +3522,285 @@ const DiamondtoolSetting = (props) => {
               />
             </Helmet>
           </div>
-          <div className="gf-tool_container_wide ">          
-          <div className="gf-tool-container fullwidth-container">
-            <LoadingOverlay className="_gfloading_overlay_wrapper">
-              <Loader fullPage loading={loaded} />
-            </LoadingOverlay>
+          <div className="gf-tool_container_wide ">
+            <div className="gf-tool-container fullwidth-container">
+              <LoadingOverlay className="_gfloading_overlay_wrapper">
+                <Loader fullPage loading={loaded} />
+              </LoadingOverlay>
 
-            <Topheader></Topheader>
-            <div className="gf_main-tool_container">
-            <div className="gf-diamond-filter">
-              {/* {console.log('getCaratmin')}
+              <Topheader></Topheader>
+              <div className="gf_main-tool_container">
+                <div className="gf-diamond-filter">
+                  {/* {console.log('getCaratmin')}
               {console.log(getCaratmin)} */}
-              <Filter
+                  <Filter
+                    shapeName={getshapeselected}
+                    selectedCut={getSelectedCut}
+                    selectedColor={getSelectedColor}
+                    selectedClarity={getSelectedClarity}
+                    caratmin={getCaratmin}
+                    caratmax={getCaratmax}
+                    pricemin={getPricemin}
+                    pricemax={getPricemax}
+                    selectedpagecount={getselectedpageno}
+                    orderbytype={getpageordertypeelected}
+                    orderType={getascdescordertypeelected}
+                    searchvalue={getfilledsearch}
+                    selectedminDept={getDepthmin}
+                    selectedmaxDept={getDepthmax}
+                    selectedmintable={getTablemin}
+                    selectedmaxtable={getTablemax}
+                    selectedPolish={getSelectedpolish}
+                    selectedFlour={getSelectedfluore}
+                    selectedSymmetry={getSelectedsymmetry}
+                    selectedfancyColor={getSelectedfancyColor}
+                    selectedfancyIntensity={getSelectedintensity}
+                    callBack={saveSearch}
+                    callbacktab={tabvalue}
+                    getMinedNavigation={getminedsetting}
+                    getLabNavigation={getlabsetting}
+                    getFancyNavigation={getfcsetting}
+                    getCompareNavigation={getcomparesetting}
+                  />
+                </div>
+
+                <div className="gf-filter-main-div">
+                  <div className="gf-shapes">
+                    <DiamondShape
+                      shapeData={shape}
+                      callBack={shapeName}
+                      selectedShape={getshapeselected}
+                    />
+                  </div>
+                  {gettabname !== "fancycolor" && (
+                    <div className="rangeSlider ui-sliders">
+                      <CutSlider
+                        cutSliderData={getDiamondCut}
+                        callBack={cutName}
+                        defaultCut={inticutname}
+                        setSelectedCutData={getSelectedCut}
+                      />
+                      <ColorSlider
+                        colorSliderData={getDiamondColor}
+                        callBack={colorName}
+                        defaultColor={inticolorname}
+                        setSelectedColorData={getSelectedColor}
+                      />
+                    </div>
+                  )}
+                  {gettabname === "fancycolor" && getFancyStatus === true && (
+                    <div className="rangeSlider ui-sliders">
+                      <FancyColorSlider
+                        fancycolorSliderData={getFancyColor}
+                        callBack={fancyColorName}
+                        setSelectedFancyColorData={getSelectedfancyColor}
+                      />
+                      <FancyIntensity
+                        getIntensityData={getIntensity}
+                        callBack={fancyintensityname}
+                        setSelectedIntensityData={getSelectedintensity}
+                      />
+                    </div>
+                  )}
+                  <div className="rangeSlider ui-sliders">
+                    <ClaritySlider
+                      claritySliderData={getDiamondClarity}
+                      callBack={clarityName}
+                      defaultClarity={inticlarityname}
+                      setSelectedClarityData={getSelectedClarity}
+                    />
+                    <div className="slider__diamond">
+                      <div className="slide_left slider-div">
+                        {/* {console.log('getsettingcookies._shopify_ringsetting')}
+                    {console.log(getsettingcookies._shopify_ringsetting)}
+                    {console.log(gettabname)} */}
+                        <CaratSlider
+                          caratSliderData={getDiamondCarat}
+                          minCarat={
+                            getsettingcookies._shopify_ringsetting
+                              ? getsettingcookies._shopify_ringsetting[0]
+                                  .ringmincarat
+                              : getCaratmin
+                          }
+                          maxCarat={
+                            getsettingcookies._shopify_ringsetting
+                              ? getsettingcookies._shopify_ringsetting[0]
+                                  .ringmaxcarat
+                              : getCaratmax
+                          }
+                          callBack={caratSliderValue}
+                          callbacktab={gettabname}
+                        />
+                      </div>
+                      <div className="slide_right slider-div">
+                        {getShowPriceFilter === true && (
+                          <PriceSlider
+                            pricerangeData={getpriceRange}
+                            pricemindata={getPricemin}
+                            pricemaxdata={getPricemax}
+                            callBack={priceSliderValue}
+                            callbacktab={gettabname}
+                          />
+                        )}
+                      </div>
+                    </div>
+
+                    {window.initData.data[0]
+                      .show_Advance_options_as_Default_in_Diamond_Search ===
+                      "1" && (
+                      <div className="advance-slider">
+                        <div
+                          className={`advance-heading ${
+                            getgrid === true ? "gf-active" : ""
+                          }`}
+                        >
+                          <div className="heading" onClick={onOpenGrid}>
+                            <span>
+                              <i className="fas fa-plus"></i>
+                            </span>
+                            Advance Search
+                          </div>
+                        </div>
+                        <div
+                          className={`advance-search-sliders ${
+                            getlist === true ? "gf-active" : ""
+                          }`}
+                        >
+                          <div
+                            className="advance-heading-div"
+                            onClick={onOpenList}
+                          >
+                            <div className="heading">
+                              <span>
+                                <i className="fas fa-minus"></i>
+                              </span>
+                              Advance Search
+                            </div>
+                          </div>
+                          <div className="slider__diamond">
+                            <div className="slide_left slider-div">
+                              <DepthSlider
+                                depthSliderData={getDepth}
+                                depthmin={getDepthmin}
+                                depthmax={getDepthmax}
+                                callBack={depthSliderValue}
+                                callbacktab={gettabname}
+                              />
+                            </div>
+                            <div className="slide_right slider-div">
+                              <TableSlider
+                                tableSliderData={getTable}
+                                tablemin={getTablemin}
+                                tablemax={getTablemax}
+                                callBack={tableSliderValue}
+                                callbacktab={gettabname}
+                              />
+                            </div>
+                          </div>
+                          <PolishSlider
+                            polishSliderData={getPolish}
+                            callBack={polishName}
+                            defaultCut={intpolishname}
+                            setSelectedPolishData={getSelectedpolish}
+                          />
+                          <FluorescenceSlider
+                            fluorescenceSliderData={getfluorescenceRangeData}
+                            callBack={fluoreName}
+                            defaultCut={intfluore}
+                            setSelectedFluoreData={getSelectedfluore}
+                          />
+                          <SymmetrySlider
+                            symmetrySliderData={getsymmetry}
+                            callBack={symmetryName}
+                            defaultCut={initsymmetry}
+                            setSelectedSymData={getSelectedsymmetry}
+                          />
+                          {window.initData.data[0]
+                            .show_Certificate_in_Diamond_Search === "1" &&
+                            getcertificate && (
+                              <Certificates
+                                certificateData={getcertificate}
+                                onChangeOrderType={handleOrderTypeChange}
+                              />
+                            )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {skeltonLoad === false && (
+            <div className="gf-tool-container">
+              <div className="s_gridview">
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+                <div className="Skeleton__lists">
+                  <Skeleton circle={true} height={150} width={150} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                  <Skeleton height={25} width={200} />
+                </div>
+              </div>
+              <Skeleton />
+            </div>
+          )}
+          {skeltonLoad === true && (
+            <div className="gf-SettingsContainer " id="ringbuilderScrollUp">
+              <DiamondSettingsProducts
+                checkboxcount={getCompareCount}
+                getDataSettingProductData={getDataSettingProduct}
+                productCount={getProductCount}
+                pagesize={pagesizevalue}
+                currentpageno={currentpagevalue}
+                totalPages={getTotalPage}
+                startPage={getStartPage}
+                endPage={getEndPage}
+                orderbytype={pageorderbytype}
+                orderType={ascdesctype}
+                searchvalue={searchValueCurrent}
+                tabvalue={gettabname}
                 shapeName={getshapeselected}
                 selectedCut={getSelectedCut}
                 selectedColor={getSelectedColor}
@@ -3551,9 +3810,6 @@ const DiamondtoolSetting = (props) => {
                 pricemin={getPricemin}
                 pricemax={getPricemax}
                 selectedpagecount={getselectedpageno}
-                orderbytype={getpageordertypeelected}
-                orderType={getascdescordertypeelected}
-                searchvalue={getfilledsearch}
                 selectedminDept={getDepthmin}
                 selectedmaxDept={getDepthmax}
                 selectedmintable={getTablemin}
@@ -3563,270 +3819,11 @@ const DiamondtoolSetting = (props) => {
                 selectedSymmetry={getSelectedsymmetry}
                 selectedfancyColor={getSelectedfancyColor}
                 selectedfancyIntensity={getSelectedintensity}
-                callBack={saveSearch}
-                callbacktab={tabvalue}
-                getMinedNavigation={getminedsetting}
-                getLabNavigation={getlabsetting}
-                getFancyNavigation={getfcsetting}
-                getCompareNavigation={getcomparesetting}
+                diamondFilterRange={getFilterData}
+                diamondFilterRangeResponse={diamondFilterRangeOfInHouse}
               />
             </div>
-           
-            <div className="gf-filter-main-div">
-              <div className="gf-shapes">
-                <DiamondShape
-                  shapeData={shape}
-                  callBack={shapeName}
-                  selectedShape={getshapeselected}
-                />
-              </div>
-              {gettabname !== "fancycolor" && (
-                <div className="rangeSlider ui-sliders">
-                  <CutSlider
-                    cutSliderData={getDiamondCut}
-                    callBack={cutName}
-                    defaultCut={inticutname}
-                    setSelectedCutData={getSelectedCut}
-                  />
-                  <ColorSlider
-                    colorSliderData={getDiamondColor}
-                    callBack={colorName}
-                    defaultColor={inticolorname}
-                    setSelectedColorData={getSelectedColor}
-                  />
-                </div>
-              )}
-              {gettabname === "fancycolor" && getFancyStatus === true && (
-                <div className="rangeSlider ui-sliders">
-                  <FancyColorSlider
-                    fancycolorSliderData={getFancyColor}
-                    callBack={fancyColorName}
-                    setSelectedFancyColorData={getSelectedfancyColor}
-                  />
-                  <FancyIntensity
-                    getIntensityData={getIntensity}
-                    callBack={fancyintensityname}
-                    setSelectedIntensityData={getSelectedintensity}
-                  />
-                </div>
-              )}
-              <div className="rangeSlider ui-sliders">
-                <ClaritySlider
-                  claritySliderData={getDiamondClarity}
-                  callBack={clarityName}
-                  defaultClarity={inticlarityname}
-                  setSelectedClarityData={getSelectedClarity}
-                />
-                <div className="slider__diamond">
-                  <div className="slide_left slider-div">
-                    {/* {console.log('getsettingcookies._shopify_ringsetting')}
-                    {console.log(getsettingcookies._shopify_ringsetting)}
-                    {console.log(gettabname)} */}
-                    <CaratSlider
-                      caratSliderData={getDiamondCarat}
-                      minCarat={
-                        getsettingcookies._shopify_ringsetting
-                          ? getsettingcookies._shopify_ringsetting[0]
-                              .ringmincarat
-                          : getCaratmin
-                      }
-                      maxCarat={
-                        getsettingcookies._shopify_ringsetting
-                          ? getsettingcookies._shopify_ringsetting[0]
-                              .ringmaxcarat
-                          : getCaratmax
-                      }
-                      callBack={caratSliderValue}
-                      callbacktab={gettabname}
-                    />
-                  </div>
-                  <div className="slide_right slider-div">
-                    {getShowPriceFilter === true && (
-                      <PriceSlider
-                        pricerangeData={getpriceRange}
-                        pricemindata={getPricemin}
-                        pricemaxdata={getPricemax}
-                        callBack={priceSliderValue}
-                        callbacktab={gettabname}
-                      />
-                    )}
-                  </div>
-                </div>
-
-                {window.initData.data[0]
-                  .show_Advance_options_as_Default_in_Diamond_Search ===
-                  "1" && (
-                  <div className="advance-slider">
-                    <div
-                      className={`advance-heading ${
-                        getgrid === true ? "gf-active" : ""
-                      }`}
-                    >
-                      <div className="heading" onClick={onOpenGrid}>
-                        <span>
-                          <i className="fas fa-plus"></i>
-                        </span>
-                        Advance Search
-                      </div>
-                    </div>
-                    <div
-                      className={`advance-search-sliders ${
-                        getlist === true ? "gf-active" : ""
-                      }`}
-                    >
-                      <div className="advance-heading-div" onClick={onOpenList}>
-                        <div className="heading">
-                          <span>
-                            <i className="fas fa-minus"></i>
-                          </span>
-                          Advance Search
-                        </div>
-                      </div>
-                      <div className="slider__diamond">
-                        <div className="slide_left slider-div">
-                          <DepthSlider
-                            depthSliderData={getDepth}
-                            depthmin={getDepthmin}
-                            depthmax={getDepthmax}
-                            callBack={depthSliderValue}
-                            callbacktab={gettabname}
-                          />
-                        </div>
-                        <div className="slide_right slider-div">
-                          <TableSlider
-                            tableSliderData={getTable}
-                            tablemin={getTablemin}
-                            tablemax={getTablemax}
-                            callBack={tableSliderValue}
-                            callbacktab={gettabname}
-                          />
-                        </div>
-                      </div>
-                      <PolishSlider
-                        polishSliderData={getPolish}
-                        callBack={polishName}
-                        defaultCut={intpolishname}
-                        setSelectedPolishData={getSelectedpolish}
-                      />
-                      <FluorescenceSlider
-                        fluorescenceSliderData={getfluorescenceRangeData}
-                        callBack={fluoreName}
-                        defaultCut={intfluore}
-                        setSelectedFluoreData={getSelectedfluore}
-                      />
-                      <SymmetrySlider
-                        symmetrySliderData={getsymmetry}
-                        callBack={symmetryName}
-                        defaultCut={initsymmetry}
-                        setSelectedSymData={getSelectedsymmetry}
-                      />
-                      {window.initData.data[0]
-                        .show_Certificate_in_Diamond_Search === "1" &&
-                        getcertificate === "" && (
-                          <Certificates certificateData={getcertificate} />
-                        )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            {skeltonLoad === false && (
-              <div className="gf-tool-container">
-                <div className="s_gridview">
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                  <div className="Skeleton__lists">
-                    <Skeleton circle={true} height={150} width={150} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                    <Skeleton height={25} width={200} />
-                  </div>
-                </div>
-                <Skeleton />
-              </div>
-            )}
-            {skeltonLoad === true && (
-              <div className="gf-SettingsContainer " id="ringbuilderScrollUp">
-                <DiamondSettingsProducts
-                  checkboxcount={getCompareCount}
-                  getDataSettingProductData={getDataSettingProduct}
-                  productCount={getProductCount}
-                  pagesize={pagesizevalue}
-                  currentpageno={currentpagevalue}
-                  totalPages={getTotalPage}
-                  startPage={getStartPage}
-                  endPage={getEndPage}
-                  orderbytype={pageorderbytype}
-                  orderType={ascdesctype}
-                  searchvalue={searchValueCurrent}
-                  tabvalue={gettabname}
-                  shapeName={getshapeselected}
-                  selectedCut={getSelectedCut}
-                  selectedColor={getSelectedColor}
-                  selectedClarity={getSelectedClarity}
-                  caratmin={getCaratmin}
-                  caratmax={getCaratmax}
-                  pricemin={getPricemin}
-                  pricemax={getPricemax}
-                  selectedpagecount={getselectedpageno}
-                  selectedminDept={getDepthmin}
-                  selectedmaxDept={getDepthmax}
-                  selectedmintable={getTablemin}
-                  selectedmaxtable={getTablemax}
-                  selectedPolish={getSelectedpolish}
-                  selectedFlour={getSelectedfluore}
-                  selectedSymmetry={getSelectedsymmetry}
-                  selectedfancyColor={getSelectedfancyColor}
-                  selectedfancyIntensity={getSelectedintensity}
-                  diamondFilterRange={getFilterData}
-                  diamondFilterRangeResponse={diamondFilterRangeOfInHouse}
-                />
-              </div>
-            )}
-          
+          )}
         </>
       );
     }
