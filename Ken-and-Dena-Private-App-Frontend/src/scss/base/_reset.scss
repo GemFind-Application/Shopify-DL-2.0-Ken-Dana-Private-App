@@ -195,7 +195,7 @@ textarea:focus {
   }
   .Diamond-form--small form {
     overflow-y: scroll;
-    height: 462px;
+    height: 520px;
   }
   .Diamond-form--small form::-webkit-scrollbar {
     width: 5px;
@@ -209,7 +209,7 @@ textarea:focus {
   }
   .Diamond-form--xx-small form {
     overflow-y: scroll;
-    height: 473px;
+    height: 520px;
   }
   .Diamond-form--xx-small form::-webkit-scrollbar {
     width: 5px;
@@ -805,9 +805,36 @@ select {
   }
 }
 
-.ring-diamond-video iframe {
+.ring-diamond-video{
+height: 480px;
+@media (min-width: 375px){
+  height: 500px;
+}
+@media (min-width: 500px){
+  height: 580px;
+}
+@media (min-width: 992px){
+  height: 430px;
+}
+@media (min-width: 1100px){
+  height: 430px;
+}
+@media (min-width: 1280px){
+  height: 480px;
+}
+@media (min-width: 1600px){
+  height: 520px;
+}
+
+iframe {
   border: 0;
   width: 100%;
+  height: 100%;
+  // @media (min-width: 767px){
+  //   height: calc(100% + 30px);
+  // }
+  
+}
 }
 .pagination li a {
   border: none;
@@ -928,4 +955,11 @@ th.table-selecter label {
 .gf-tool_container_wide .fullwidth-container{
   max-width: 100%;
   width: 98%;
+}
+.show_certificate .cer-sort{
+  width: 50%;
+  border: 1px solid #000;
+}
+.show_certificate .diamond-ui-slider.diamond-small-slider{
+ margin: 0;
 }

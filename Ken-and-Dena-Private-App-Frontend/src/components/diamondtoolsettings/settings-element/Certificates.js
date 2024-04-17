@@ -13,7 +13,7 @@ const Certificates = (props) => {
 
   return (
     <div className="range-slider_diamond">
-      <div className="slider">
+      <div className="slider show_certificate">
         <h4 className="f_heading diamond_heading"> CERTIFICATES</h4>
         <div className="diamond-ui-slider diamond-small-slider">
           <select

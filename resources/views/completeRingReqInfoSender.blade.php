@@ -1090,7 +1090,7 @@ td > a.logo > img{height: 52px; object-fit: contain;}
 
             <!-- START FOOTER -->
 
-            <div class="footer">
+            {{-- <div class="footer">
 
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
 
@@ -1100,7 +1100,7 @@ td > a.logo > img{height: 52px; object-fit: contain;}
 
               </table>
 
-            </div>
+            </div> --}}
 
             <!-- END FOOTER -->
 

@@ -610,10 +610,10 @@
                     </table>
 
                     <!-- START FOOTER -->
-                    <div class="closer">
+                    {{-- <div class="closer">
                         <p>Regards,</p>
                         <p>GemFind Network Team</p>
-                    </div>
+                    </div> --}}
                     <!-- END FOOTER -->
 
                     <!-- END CENTERED WHITE CONTAINER -->

@@ -16,6 +16,10 @@ const PriceSlider = (props) => {
   const marks = props.pricerangeData;
   const [startValue, setstartValue] = useState(Number(props.pricemindata));
   const [lastValue, setlastValue] = useState(Number(props.pricemaxdata));
+
+  const [pricemindata, setpricemindata] = useState();
+  const [pricemaxdata, setpricemaxdata] = useState();
+
   const [loadedfirst, setloadedfirst] = useState(false);
 
   const [getsettingcookies, setsettingcookies] = useCookies([
@@ -125,6 +129,22 @@ const PriceSlider = (props) => {
         setlastValue(Number(props.pricemaxdata));
       }
     }
+
+    const floatminValue = parseFloat(props.pricemindata); // Remove leading/trailing spaces
+    if (!isNaN(floatminValue)) {
+      setpricemindata(floatminValue.toFixed(2));
+      console.log(pricemindata);
+    } else {
+      console.log("Invalid price data:", props.pricemindata);
+    }
+
+    const floatmaxValue = parseFloat(props.pricemaxdata); // Remove leading/trailing spaces
+    if (!isNaN(floatmaxValue)) {
+      setpricemaxdata(floatmaxValue.toFixed(2));
+      console.log(pricemaxdata);
+    } else {
+      console.log("Invalid price data:", props.pricemaxdata);
+    }
   }, [props]);
 
   if (loaded === false) {
@@ -133,7 +153,7 @@ const PriceSlider = (props) => {
     return (
       <div className="range-slider_diamond">
         <div className="slider">
-          <h4 className="f_heading">
+          <h4 className="test f_heading f_small_heading">
             Price
             <span className="f_popup" onClick={onOpenModal}>
               <i className="fas fa-info-circle"></i>
@@ -191,7 +211,7 @@ const PriceSlider = (props) => {
             </span>
             <input
               type="text"
-              value={props.pricemindata ? props.pricemindata : startValue}
+              value={props.pricemindata ? pricemindata : startValue}
               onChange={startValueOnChange}
               className={
                 window.initData["data"][0].price_row_format === "0"
@@ -214,7 +234,7 @@ const PriceSlider = (props) => {
             </span>
             <input
               type="text"
-              value={props.pricemaxdata ? props.pricemaxdata : lastValue}
+              value={props.pricemaxdata ? pricemaxdata : lastValue}
               onChange={endValueOnChange}
               className={
                 window.initData["data"][0].price_row_format === "0"

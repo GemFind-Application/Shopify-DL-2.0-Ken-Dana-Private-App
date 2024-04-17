@@ -374,7 +374,7 @@ function SettingsForm(props) {
                         </Card>
                     </div>
                     <CalloutCard
-                        title="Next Steps for Getting Started with GemFind DiamondLinkⓇ
+                        title="Next Steps for Getting Started with Ken & Dana DiamondLinkⓇ
             "
                         illustration="https://gemfind.net/RingBuilderSampleFiles/callout-card.svg"
                         primaryAction={{

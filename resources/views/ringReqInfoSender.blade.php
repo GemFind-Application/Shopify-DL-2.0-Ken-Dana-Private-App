@@ -467,12 +467,12 @@ td > a.logo > img{height: 52px; object-fit: contain;}
             <!-- END MAIN CONTENT AREA -->
             </table>
             <!-- START FOOTER -->
-            <div class="footer">
+            {{-- <div class="footer">
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                           <tr><td> <p>Do Not Reply To This E-Mail.</p>
                             <p>If you have any questions about this message, please email <a href="mailto:{{$vendorEmail}}">{{$vendorEmail}}</a> <br> or call on <a href="tel:{{$vendorPhone}}">{{$vendorPhone}}</a></p></td></tr> 
               </table>
-            </div>
+            </div> --}}
             <!-- END FOOTER -->
           <!-- END CENTERED WHITE CONTAINER -->
           </div>

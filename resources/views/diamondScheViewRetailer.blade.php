@@ -491,10 +491,10 @@ td > a.logo > img{height: 52px; object-fit: contain;}
               </tr>
             <!-- END MAIN CONTENT AREA -->
             </table>
-            <div class="closer">
+            {{-- <div class="closer">
               <p>Regards,</p>
               <p>GemFind Network Team</p>
-            </div>
+            </div> --}}
 
            <!-- END CENTERED WHITE CONTAINER -->
           </div>

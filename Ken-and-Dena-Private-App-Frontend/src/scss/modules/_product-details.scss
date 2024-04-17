@@ -406,16 +406,16 @@
 .ring-diamond-video.gf-active {
     display: block;
 }
-.ring-diamond-video iframe{
+// .ring-diamond-video iframe{
 
    
-    @media (max-width: 575.98px) {
-        width:100% ;
-        height: auto;
+//     @media (max-width: 575.98px) {
+//         width:100% ;
+//         height: auto;
     
 
-    }
-}
+//     }
+// }
 
 .product-skus h2 {
     font-size: 20px;
@@ -671,7 +671,8 @@
     }
 
     .ring-diamond-video{
-        width: 85%;
+        width: 68%;
+        margin: 0 auto;
         @media (max-width: 767px) {
             width: 100%;
            
