@@ -6,9 +6,6 @@ import Skeleton from "react-loading-skeleton";
 import { useCookies } from "react-cookie";
 
 const PriceSlider = (props) => {
-  // Our States
-  // console.log(props);
-
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -16,114 +13,69 @@ const PriceSlider = (props) => {
   const marks = props.pricerangeData;
   const [startValue, setstartValue] = useState(Number(props.pricemindata));
   const [lastValue, setlastValue] = useState(Number(props.pricemaxdata));
-  const [loadedfirst, setloadedfirst] = useState(false);
+  const [getsettingcookies] = useCookies(["_wpsavediamondfiltercookie"]);
+  const [getlabcookies] = useCookies(["_wpsavedlabgowndiamondfiltercookie"]);
+  const [getfancycookies] = useCookies(["_wpsavedfancydiamondfiltercookie"]);
 
-  const [getsettingcookies, setsettingcookies] = useCookies([
-    "_wpsavediamondfiltercookie",
-  ]);
-  const [getlabcookies, setlabcookies] = useCookies([
-    "_wpsavedlabgowndiamondfiltercookie",
-  ]);
-  const [getfancycookies, setfancycookies] = useCookies([
-    "_wpsavedfancydiamondfiltercookie",
-  ]);
-  //   console.log("props");
-  //   console.log(props);
-  // Changing State when volume increases/decreases
-  const rangeSelector = (newValue) => {
-    setstartValue(parseInt(newValue[0]));
-    setlastValue(parseInt(newValue[1]));
+  const formatToTwoDecimals = (value) => parseFloat(value).toFixed(2);
 
-    let sliderSelection = [];
-    sliderSelection.push(parseInt(newValue[0]));
-    sliderSelection.push(parseInt(newValue[1]));
-  };
   const rangeSelectorprops = (newValue) => {
-    setstartValue(parseInt(newValue[0]));
-    setlastValue(parseInt(newValue[1]));
+    setstartValue(formatToTwoDecimals(newValue[0]));
+    setlastValue(formatToTwoDecimals(newValue[1]));
 
-    let sliderSelection = [];
-    sliderSelection.push(parseInt(newValue[0]));
-    sliderSelection.push(parseInt(newValue[1]));
-    // props.callBack(newValue);
+    const sliderSelection = [
+      parseFloat(newValue[0]).toFixed(2),
+      parseFloat(newValue[1]).toFixed(2),
+    ];
     props.callBack(sliderSelection);
   };
 
   const startValueOnChange = (event) => {
-    const intValue = parseInt(event.target.value);
-    if (
-      Number.isInteger(intValue) &&
-      intValue >= 0 &&
-      intValue <= Number(marks[0].maxPrice)
-    ) {
-      setstartValue(event.target.value);
-      let sliderSelection = [];
-      sliderSelection.push(parseInt(event.target.value));
-      sliderSelection.push(lastValue);
-      ////console.log("continue start value change");
-      props.callBack(sliderSelection);
+    const intValue = parseFloat(event.target.value).toFixed(2);
+    if (intValue >= 0 && intValue <= Number(marks[0].maxPrice)) {
+      setstartValue(intValue);
+      props.callBack([parseFloat(intValue).toFixed(2), lastValue]);
     } else {
       alert("Please Enter Valid Value");
-      return;
     }
   };
 
   const endValueOnChange = (event) => {
-    const intValue = parseInt(event.target.value);
-    if (
-      Number.isInteger(intValue) &&
-      intValue >= 0 &&
-      intValue <= Number(marks[0].maxPrice)
-    ) {
-      setlastValue(event.target.value);
-      let sliderSelection = [];
-      sliderSelection.push(startValue);
-      sliderSelection.push(parseInt(event.target.value));
-      //console.log("continue end value change");
-      props.callBack(sliderSelection);
+    const intValue = parseFloat(event.target.value).toFixed(2);
+    if (intValue >= 0 && intValue <= Number(marks[0].maxPrice)) {
+      setlastValue(intValue);
+      props.callBack([startValue, parseFloat(intValue).toFixed(2)]);
     } else {
       alert("Please Enter Valid Value");
-      return;
     }
   };
 
   useEffect(() => {
     setLoaded(true);
-    if (props.callbacktab === "fancycolor") {
-      if (
-        getfancycookies._wpsavedfancydiamondfiltercookie &&
-        getfancycookies._wpsavedfancydiamondfiltercookie.pricemin &&
-        getfancycookies._wpsavedfancydiamondfiltercookie.pricemax
-      ) {
-        setstartValue(Number(props.pricemindata));
-        setlastValue(Number(props.pricemaxdata));
-      }
+    if (
+      props.callbacktab === "fancycolor" &&
+      getfancycookies._wpsavedfancydiamondfiltercookie
+    ) {
+      setstartValue(Number(props.pricemindata).toFixed(2));
+      setlastValue(Number(props.pricemaxdata).toFixed(2));
     }
-
     if (props.pricemindata === "" && props.pricemaxdata === "") {
-      setstartValue(Number(marks[0].minPrice));
-      setlastValue(Number(marks[0].maxPrice));
+      setstartValue(Number(marks[0].minPrice).toFixed(2));
+      setlastValue(Number(marks[0].maxPrice).toFixed(2));
     }
-
-    if (props.callbacktab === "mined") {
-      if (
-        getsettingcookies._wpsavediamondfiltercookie &&
-        getsettingcookies._wpsavediamondfiltercookie.pricemin &&
-        getsettingcookies._wpsavediamondfiltercookie.pricemax
-      ) {
-        setstartValue(Number(props.pricemindata));
-        setlastValue(Number(props.pricemaxdata));
-      }
+    if (
+      props.callbacktab === "mined" &&
+      getsettingcookies._wpsavediamondfiltercookie
+    ) {
+      setstartValue(Number(props.pricemindata).toFixed(2));
+      setlastValue(Number(props.pricemaxdata).toFixed(2));
     }
-    if (props.callbacktab === "labgrown") {
-      if (
-        getlabcookies._wpsavedlabgowndiamondfiltercookie &&
-        getlabcookies._wpsavedlabgowndiamondfiltercookie.pricemin &&
-        getlabcookies._wpsavedlabgowndiamondfiltercookie.pricemax
-      ) {
-        setstartValue(Number(props.pricemindata));
-        setlastValue(Number(props.pricemaxdata));
-      }
+    if (
+      props.callbacktab === "labgrown" &&
+      getlabcookies._wpsavedlabgowndiamondfiltercookie
+    ) {
+      setstartValue(Number(props.pricemindata).toFixed(2));
+      setlastValue(Number(props.pricemaxdata).toFixed(2));
     }
   }, [props]);
 
@@ -168,11 +120,8 @@ const PriceSlider = (props) => {
                 min: Number(marks[0].minPrice),
                 max: Number(marks[0].maxPrice),
               }}
-              // format={{ Number }}
-              tooltips={true}
-              // onUpdate={rangeSelector} // for example updating a state value
+              tooltips
               onChange={rangeSelectorprops}
-              // onSlide={rangeSelector}
             />
           </div>
         </div>
@@ -198,7 +147,7 @@ const PriceSlider = (props) => {
                   ? "input-left"
                   : ""
               }
-            />{" "}
+            />
           </div>
           <div className="input-value-right">
             <span
