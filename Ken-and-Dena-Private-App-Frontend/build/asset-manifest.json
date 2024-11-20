@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/apps/diamondtools/static/css/main.6dd1b5f6.css",
-    "main.js": "/apps/diamondtools/static/js/main.c7f708ab.js",
+    "main.js": "/apps/diamondtools/static/js/main.6a397bb6.js",
     "static/media/diamond-image.png": "/apps/diamondtools/static/media/diamond-image.2d9d27af7a5d80d1e235.png",
     "static/media/carat-Diamond.png": "/apps/diamondtools/static/media/carat-Diamond.ea63dd149919f42c3549.png",
     "static/media/diamond.gif": "/apps/diamondtools/static/media/diamond.ab83c6d22d8820a8944a.gif",
@@ -16,10 +16,10 @@
     "static/media/colorless.png": "/apps/diamondtools/static/media/colorless.f7d4bd38c2fcd6195488.png",
     "index.html": "/apps/diamondtools/index.html",
     "main.6dd1b5f6.css.map": "/apps/diamondtools/static/css/main.6dd1b5f6.css.map",
-    "main.c7f708ab.js.map": "/apps/diamondtools/static/js/main.c7f708ab.js.map"
+    "main.6a397bb6.js.map": "/apps/diamondtools/static/js/main.6a397bb6.js.map"
   },
   "entrypoints": [
     "static/css/main.6dd1b5f6.css",
-    "static/js/main.c7f708ab.js"
+    "static/js/main.6a397bb6.js"
   ]
 }

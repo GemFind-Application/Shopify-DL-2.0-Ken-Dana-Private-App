@@ -11,17 +11,21 @@ const PriceSlider = (props) => {
   const onCloseModal = () => setOpen(false);
   const [loaded, setLoaded] = useState(false);
   const marks = props.pricerangeData;
-  const [startValue, setstartValue] = useState(Number(props.pricemindata));
-  const [lastValue, setlastValue] = useState(Number(props.pricemaxdata));
+  const [startValue, setStartValue] = useState(Number(props.pricemindata));
+  const [lastValue, setLastValue] = useState(Number(props.pricemaxdata));
   const [getsettingcookies] = useCookies(["_wpsavediamondfiltercookie"]);
   const [getlabcookies] = useCookies(["_wpsavedlabgowndiamondfiltercookie"]);
   const [getfancycookies] = useCookies(["_wpsavedfancydiamondfiltercookie"]);
 
   const formatToTwoDecimals = (value) => parseFloat(value).toFixed(2);
 
+  const formatCurrency = (value) => {
+    return Number(value).toLocaleString(); // Format with commas
+  };
+
   const rangeSelectorprops = (newValue) => {
-    setstartValue(formatToTwoDecimals(newValue[0]));
-    setlastValue(formatToTwoDecimals(newValue[1]));
+    setStartValue(formatToTwoDecimals(newValue[0]));
+    setLastValue(formatToTwoDecimals(newValue[1]));
 
     const sliderSelection = [
       parseFloat(newValue[0]).toFixed(2),
@@ -31,9 +35,10 @@ const PriceSlider = (props) => {
   };
 
   const startValueOnChange = (event) => {
-    const intValue = parseFloat(event.target.value).toFixed(2);
+    const rawValue = event.target.value.replace(/,/g, ""); // Remove commas before validating
+    const intValue = parseFloat(rawValue).toFixed(2);
     if (intValue >= 0 && intValue <= Number(marks[0].maxPrice)) {
-      setstartValue(intValue);
+      setStartValue(intValue);
       props.callBack([parseFloat(intValue).toFixed(2), lastValue]);
     } else {
       alert("Please Enter Valid Value");
@@ -41,9 +46,10 @@ const PriceSlider = (props) => {
   };
 
   const endValueOnChange = (event) => {
-    const intValue = parseFloat(event.target.value).toFixed(2);
+    const rawValue = event.target.value.replace(/,/g, ""); // Remove commas before validating
+    const intValue = parseFloat(rawValue).toFixed(2);
     if (intValue >= 0 && intValue <= Number(marks[0].maxPrice)) {
-      setlastValue(intValue);
+      setLastValue(intValue);
       props.callBack([startValue, parseFloat(intValue).toFixed(2)]);
     } else {
       alert("Please Enter Valid Value");
@@ -56,26 +62,26 @@ const PriceSlider = (props) => {
       props.callbacktab === "fancycolor" &&
       getfancycookies._wpsavedfancydiamondfiltercookie
     ) {
-      setstartValue(Number(props.pricemindata).toFixed(2));
-      setlastValue(Number(props.pricemaxdata).toFixed(2));
+      setStartValue(Number(props.pricemindata).toFixed(2));
+      setLastValue(Number(props.pricemaxdata).toFixed(2));
     }
     if (props.pricemindata === "" && props.pricemaxdata === "") {
-      setstartValue(Number(marks[0].minPrice).toFixed(2));
-      setlastValue(Number(marks[0].maxPrice).toFixed(2));
+      setStartValue(Number(marks[0].minPrice).toFixed(2));
+      setLastValue(Number(marks[0].maxPrice).toFixed(2));
     }
     if (
       props.callbacktab === "mined" &&
       getsettingcookies._wpsavediamondfiltercookie
     ) {
-      setstartValue(Number(props.pricemindata).toFixed(2));
-      setlastValue(Number(props.pricemaxdata).toFixed(2));
+      setStartValue(Number(props.pricemindata).toFixed(2));
+      setLastValue(Number(props.pricemaxdata).toFixed(2));
     }
     if (
       props.callbacktab === "labgrown" &&
       getlabcookies._wpsavedlabgowndiamondfiltercookie
     ) {
-      setstartValue(Number(props.pricemindata).toFixed(2));
-      setlastValue(Number(props.pricemaxdata).toFixed(2));
+      setStartValue(Number(props.pricemindata).toFixed(2));
+      setLastValue(Number(props.pricemaxdata).toFixed(2));
     }
   }, [props]);
 
@@ -140,7 +146,7 @@ const PriceSlider = (props) => {
             </span>
             <input
               type="text"
-              value={props.pricemindata ? props.pricemindata : startValue}
+              value={props.pricemindata ? formatCurrency(props.pricemindata) : formatCurrency(startValue)}
               onChange={startValueOnChange}
               className={
                 window.initData["data"][0].price_row_format === "0"
@@ -163,13 +169,16 @@ const PriceSlider = (props) => {
             </span>
             <input
               type="text"
-              value={props.pricemaxdata ? props.pricemaxdata : lastValue}
+              inputMode="decimal"
+              value={props.pricemaxdata ? formatCurrency(props.pricemaxdata) : formatCurrency(lastValue)}
               onChange={endValueOnChange}
+              placeholder="Enter price"
               className={
                 window.initData["data"][0].price_row_format === "0"
                   ? "input-left"
                   : ""
               }
+              aria-label="Price input"
             />
           </div>
         </div>
