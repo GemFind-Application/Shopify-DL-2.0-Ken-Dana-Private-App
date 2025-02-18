@@ -1,2 +1,40 @@
-name = "GemFind DiamondLinkⓇ Advance"
-scopes = "write_products,write_inventory,read_locations,write_checkouts,read_themes"
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "VITE_SHOPIFY_API_KEY"
+application_url = "https://kenanddana-dl.gfindex.com/"
+embedded = true
+name = "Ken & Dana DiamondLinkⓇ"
+handle = "ken-dana-diamondlink"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products,write_inventory,read_locations,write_checkouts,read_themes,write_publications,read_publications"
+
+[webhooks]
+api_version = "2025-01"
+
+[[webhooks.subscriptions]]
+uri = "/api/erasureEndpoint"
+compliance_topics = ["customers/redact"]
+
+[[webhooks.subscriptions]]
+uri = "/api/requestEndpoint"
+compliance_topics = ["customers/data_request"]
+
+[[webhooks.subscriptions]]
+uri = "/api/shopErasureEndpoint"
+compliance_topics = ["shop/redact"]
+
+[auth]
+redirect_urls = ["https://kenanddana-dl.gfindex.com/authenticate"]
+
+[app_proxy]
+url = "https://kenanddana-dl.gfindex.com/diamondtools/"
+subpath = "diamondtools"
+prefix = "apps"
+
+[pos]
+embedded = false
+
+[build]
+include_config_on_deploy = true

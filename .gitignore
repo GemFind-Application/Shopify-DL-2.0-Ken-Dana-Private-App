@@ -23,5 +23,7 @@ Homestead.json
 .phpunit.result.cache
 
 Ken-and-Dena-Private-App-Frontend/node_modules
+Ken-and-Dena-Private-App-Frontend/build
+
 
 .history
