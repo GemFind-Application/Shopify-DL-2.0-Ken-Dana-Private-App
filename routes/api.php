@@ -68,9 +68,6 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
     //ADD TO PDF DOWNLOAD
     Route::get('printDiamond/{shop}/{diamond_id}/{type}', 'AddToCartController@printDiamond');
 
-    //GET PRODUCTS API
-    Route::post('getProducts', 'ProductController@getProducts');
-
     //GET PRODUCT DETAILS API
     Route::get('getProductDetails/{shop}/{product_id}/{variant_id}', 'AddToCartController@getProductDetails');
 
