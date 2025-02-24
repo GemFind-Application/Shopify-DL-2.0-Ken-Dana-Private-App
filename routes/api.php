@@ -20,10 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 // Route::post('/getMyBooking', 'SessionController@getMyBooking');
 Route::namespace('App\\Http\\Controllers')->group(function () {
-    //SMTP API
-    Route::post('saveConfiguration', 'SmtpController@saveConfiguration');
-    Route::get('getSmtpConfiguration/{shopDomain}', 'SmtpController@getSmtpConfiguration');
-    Route::post('setOneWebhook', 'SmtpController@setOneWebhook');
 
     //CUSTOMER API
     Route::get('ifCustomerExists/{shopDomain}', 'SettingsController@ifCustomerExists');

@@ -10,11 +10,9 @@ use File;
 
 class ImportController extends Controller
 {
-
     function importApi(Request $request)
     {
         $requestData = $request->all();
-        // echo '<pre>';print_r($requestData);exit;
         foreach ($requestData as $value) {
             if ($value['value'] == '') {
                 return response()->json(['message' => 'Please select any options for your Ring Builder Settings', 'status' => 'fail']);
@@ -24,11 +22,7 @@ class ImportController extends Controller
                 return response()->json(['message' => 'Settings saved as Api successfully', 'status' => 'success', 'data' => "1"]);
             } elseif ($value['value'] == 2) {
                 self::insertCollection($requestData);
-                // echo '<pre>';print_r($finalCollectionData);exit;
-                // if($value['enableImport'] == 'csv'){
-                //     $saveImportData =  DB::table('diamondlink_config')->where(['shop'=> $value['shopDomain']])->update(['type_1'=>"2"]);
-                //     return response()->json(['message'=>'Settings saved as CSV Import successfully','status'=>'success','data'=>"2"]);
-                // }else{
+    
                 $saveImportData =  DB::table('diamondlink_config')->where(['shop' => $value['shopDomain']])->update(['type_1' => "2"]);
                 return response()->json(['message' => 'Settings saved as CSV Import successfully', 'status' => 'success', 'data' => "2"]);
                 // }
@@ -46,7 +40,6 @@ class ImportController extends Controller
         $theme_data = json_encode($theme);
         $theme_array = json_decode($theme_data, true);
 
-        // echo '<pre>';print_r($theme_array);exit;
         foreach ($theme_array['themes'] as $key => $value) {
             if ($value['role'] == 'main') {
                 $current_themeId = $value['id'];
@@ -76,113 +69,7 @@ class ImportController extends Controller
                 'value' => $newContent
             ]
         ]);
-        // // CREATE MAIN PRODUCT RINGBUILDER TEMPLATE
-        // $mainProductTemplate = public_path() . '/ringbuilder/main-product-ringbuilder.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'sections/main-product-ringbuilder.liquid',
-        //         'value' => file_get_contents($mainProductTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE MAIN PRODUCT RINGBUILDER TEMPLATE
-        // $add_diamondTemplate = public_path() . '/ringbuilder/add_diamond.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'sections/add_diamond.liquid',
-        //         'value' => file_get_contents($add_diamondTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE HEADER TEMPLATE
-        // $headerTemplate = public_path() . '/ringbuilder/ringbuilder_header.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'sections/ringbuilder_header.liquid',
-        //         'value' => file_get_contents($headerTemplate)
-        //     ]
-        // ]);
-        // // CREATE COLLECTION TEMPLATE
-        // $collectionTemplate = public_path() . '/ringbuilder/collection_ringbuilder_settings.json';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'templates/collection.ringbuilder_settings.json',
-        //         'value' => file_get_contents($collectionTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE PRODUCT TEMPLATE
-        // $productTemplate = public_path() . '/ringbuilder/product_ringbuilder_settings.json';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'templates/product.ringbuilder_settings.json',
-        //         'value' => file_get_contents($productTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE JS TEMPLATE
-        // $jsTemplate = public_path() . '/ringbuilder/ringbuilder_settings.js';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'assets/ringbuilder_settings.js',
-        //         'value' => file_get_contents($jsTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE CSS TEMPLATE
-        // $cssTemplate = public_path() . '/ringbuilder/ringbuilder_settings.css';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'assets/ringbuilder_settings.css',
-        //         'value' => file_get_contents($cssTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE DROP HINT SNIPPET
-        // $cssTemplate = public_path() . '/ringbuilder/drop_hint.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'snippets/drop_hint.liquid',
-        //         'value' => file_get_contents($cssTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE REQUEST INFO SNIPPET
-        // $cssTemplate = public_path() . '/ringbuilder/email_friend.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'snippets/email_friend.liquid',
-        //         'value' => file_get_contents($cssTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE EMAIL FRIEND SNIPPET
-        // $cssTemplate = public_path() . '/ringbuilder/request_info.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'snippets/request_info.liquid',
-        //         'value' => file_get_contents($cssTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE SCHEDULEVIEW SNIPPET
-        // $cssTemplate = public_path() . '/ringbuilder/schedule_view.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'snippets/schedule_view.liquid',
-        //         'value' => file_get_contents($cssTemplate)
-        //     ]
-        // ]);
-
-        // // CREATE RINGBUIDER SUCCESS FILE
-        // $successTemplate = public_path() . '/ringbuilder/ringbuilder_success_modal.liquid';
-        // $shop->api()->rest('PUT', '/admin/themes/' . $current_themeId . '/assets.json', [
-        //     'asset' => [
-        //         'key'   => 'snippets/ringbuilder_success_modal.liquid',
-        //         'value' => file_get_contents($successTemplate)
-        //     ]
-        // ]);
-
+       
         //CHECKING COLLECTION IF EXISTS BY HANDLE
         $url = 'https://' . $requestData['data']['shopDomain'] . '/admin/api/2020-07/graphql.json';
         $qry = '{
@@ -205,7 +92,6 @@ class ImportController extends Controller
         );
         $server_output = curl_exec($ch);
         $collectionByHandle = json_decode($server_output, true);
-        // echo '<pre>';print_r($collectionByHandle);exit;
         $final_handle = $collectionByHandle['data']['collectionByHandle'];
         if (empty($final_handle)) {
             $collections_array = array(
@@ -263,8 +149,6 @@ class ImportController extends Controller
     {
         //CREATE METAFIELDS WITH DEFINITIONS
         $urlMeta = 'https://' . $shop . '/admin/api/2022-04/graphql.json';
-        // echo '<pre>';print_r($shop);
-        // echo '<pre>';print_r($name);
         $qryMeta = '{
             "query": "mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) { metafieldDefinitionCreate(definition: $definition) { createdDefinition { id name } userErrors { field message code } } }",
              "variables": {
@@ -313,7 +197,6 @@ class ImportController extends Controller
     function productImages($filedata, $product_id, $shop)
     {
         $findimage = $this->findImages($filedata);
-        // echo '<pre>';print_r($findimage);
         $MainImage = array($filedata['MainImage']);
         if (!empty($MainImage) && !empty($findimage)) {
             $attachment = array_merge($MainImage, $findimage);
@@ -349,7 +232,6 @@ class ImportController extends Controller
     {
         $filemainarray = $requestData['data']['file'];
         $count = 0;
-        // echo '<pre>';print_r($requestData);exit;
         foreach ($filemainarray as $filedata) {
             //THIS IS FOR CHECKING SIMPLE PRODUCT WITHOUT PARENT AND CHILD SKU
             if (isset($filedata['Product_Type']) && $filedata['Product_Type'] == 'simple') {
@@ -369,9 +251,7 @@ class ImportController extends Controller
                         $k++;
                     }
                     $createDynamicAttribute = array();
-                    $selectedAttributes = explode(',', $filedata['Configurable_Attributes']);
-                    //    print_r($selectedAttributes);
-                    // exit;
+                    $selectedAttributes = explode(',', $filedata['Configurable_Attributes']);                  
                     if (count($selectedAttributes) > 3) {
                         return response()->json(['message' => 'You can not add more than 3 Configurable Attributes.', 'status' => 'fail', 'data' => []]);
                     }
@@ -396,7 +276,6 @@ class ImportController extends Controller
                     } else {
                         $option3 = '';
                     }
-
                     $variantsData = [
                         [
                             'sku'       => $filedata["Sku"],
@@ -424,7 +303,6 @@ class ImportController extends Controller
                         )
                     );
 
-                    // echo '<pre>';print_r($products_array);exit;
                     $shop = User::where('name', $requestData['data']['shopDomain'])->firstOrFail();
                     $create_product = $shop->api()->rest('POST', '/admin/products.json', $products_array);
                     $product_data = json_encode($create_product);
@@ -441,13 +319,7 @@ class ImportController extends Controller
                     }
                     //CREATE IMAGE
                     $uploadProductImage = $this->productImages($filedata, $product_id, $shop);
-                    //END IMPORT IMAGE
-                    //CREATE VARIANTS
-                    //CREATE METAFIELDS FOR PRODUCT
-                    // foreach ($product_metafield as $key => $value) {
-                    //     $data = array('metafield'=>$value);
-                    //     $createmeta_fields = $shop->api()->rest('POST','/admin/products/'.$product_id.'/metafields.json',$data);
-                    // }
+                    //END IMPORT IMAGE                 
                     $count++;
                 }
             } elseif (isset($filedata['Product_Type']) && $filedata['Product_Type'] == 'configurable') {
@@ -513,16 +385,11 @@ class ImportController extends Controller
                             "options" => $createDynamicAttribute,
                             "variants" => $variantsData,
                         )
-                    );
-                    // echo '<pre>';
-                    // print_r($products_array);
-                    // exit;
+                    );               
                     $shop = User::where('name', $requestData['data']['shopDomain'])->firstOrFail();
                     $create_product = $shop->api()->rest('POST', '/admin/products.json', $products_array);
                     $product_data = json_encode($create_product);
                     $finalProductData = json_decode($product_data);
-                    // echo '<pre>';
-                    // print_r($finalProductData);
                     $product_id = $finalProductData->body->product->id;
                     if ($product_id) {
                         $pathLog = public_path() . '/' . $requestData['data']['shopDomain'];
@@ -535,14 +402,7 @@ class ImportController extends Controller
                     }
                     //CREATE IMAGE
                     $uploadProductImage = $this->productImages($filedata, $product_id, $shop);
-                    //END IMPORT IMAGE
-                    //CREATE METAFIELDS FOR PRODUCT
-                    // foreach ($product_metafield as $key => $value) {
-                    //     $data = array('metafield'=>$value);
-                    //     $createmeta_fields = $shop->api()->rest('POST','/admin/products/'.$product_id.'/metafields.json',$data);
-                    // }
-                    //END PRODUCT VARIATION
-                    //CREATE METAFIELDS FOR VARIATION
+                    //END IMPORT IMAGE                
                     foreach ($finalProductData->body->product->variants as $key => $value) {
                         $arraykey = array_search($value->sku, array_column($filemainarray, 'Sku'));
                         $metafieldsdata = $this->findMetaFields($filemainarray[$arraykey]);
@@ -557,12 +417,10 @@ class ImportController extends Controller
                             $product_metafield[$k]['name'] = "product";
                             $k++;
                         }
-
                         //VARIENT API CALL
                         foreach ($product_metafield as $key => $valueproduct) {
                             $data = array('metafield' => $valueproduct);
                             $createmeta_fields = $shop->api()->rest('POST', '/admin/products/' . $product_id . '/variants/' . $value->id . '/metafields.json', $data);
-                            // file_put_contents('MissingProducttest.txt', '=='.json_encode($createmeta_fields));
                         }
                     }
                     //END PRODUCT VARIATION
@@ -668,11 +526,6 @@ class ImportController extends Controller
                     //CREATE IMAGE
                     $uploadProductImage = $this->productImages($filedata, $product_id, $shop);
                     //END IMPORT IMAGE
-                    //CREATE METAFIELDS FOR PRODUCT
-                    // foreach ($product_metafield as $key => $value) {
-                    //     $data = array('metafield'=>$value);
-                    //     $createmeta_fields = $shop->api()->rest('POST','/admin/products/'.$product_id.'/metafields.json',$data);
-                    // }
                     $count++;
                 }
             } elseif (isset($filedata['Product_Type']) && $filedata['Product_Type'] == 'configurable') {
@@ -747,12 +600,6 @@ class ImportController extends Controller
                     //CREATE IMAGE
                     $uploadProductImage = $this->productImages($filedata, $product_id, $shop);
                     //END IMPORT IMAGE
-                    //CREATE METAFIELDS FOR PRODUCT
-                    // foreach ($product_metafield as $key => $value) {
-                    //     $data = array('metafield'=>$value);
-                    //     $createmeta_fields = $shop->api()->rest('POST','/admin/products/'.$product_id.'/metafields.json',$data);
-                    // }
-                    //END PRODUCT VARIATION
                     //CREATE METAFIELDS FOR VARIATION
                     foreach ($finalProductData->body->product->variants as $key => $value) {
                         $arraykey = array_search($value->sku, array_column($filemainarray, 'Sku'));
@@ -773,7 +620,6 @@ class ImportController extends Controller
                         foreach ($product_metafield as $key => $valueproduct) {
                             $data = array('metafield' => $valueproduct);
                             $createmeta_fields = $shop->api()->rest('POST', '/admin/products/' . $product_id . '/variants/' . $value->id . '/metafields.json', $data);
-                            // file_put_contents('MissingProducttest.txt', '=='.json_encode($createmeta_fields));
                         }
                     }
                     //END PRODUCT VARIATION
@@ -810,7 +656,6 @@ class ImportController extends Controller
             $final_success_array = [];
         }
         $failedFile = public_path() . '/' . $shopDomain . '/' . 'product_import_fail.txt';
-        // echo '<pre>';print_r($failedFile);exit;
         if (file_exists($failedFile)) {
             $getFailedContent = file_get_contents($failedFile);
             $explodeFailedContent = explode('|||', $getFailedContent);
@@ -831,8 +676,6 @@ class ImportController extends Controller
             $explodeFailedContent = [];
             $final_fail_array = [];
         }
-        // echo '<pre>';print_r($explodeSuccessContent);exit;
-
 
         return response()->json([
             'message' => 'Settings saved as JSON Import successfully', 'status' => 'success',
@@ -862,8 +705,6 @@ class ImportController extends Controller
         $api_key = env('VITE_SHOPIFY_API_KEY');
         $hostname = $shopDomain;
         $apppassword = "";
-        // $shop_data = User::where('name', $shopDomain)->firstOrFail();
-        // $images = $shop_data->api()->rest('POST','/admin/products/7384018092186/images.json');
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         $url = 'https://' . $api_key . ':' . $apppassword . '@' . $hostname . '/admin/products/7384018092186/images.json';
